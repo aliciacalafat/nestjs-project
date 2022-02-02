@@ -1,12 +1,25 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
+// export class Gallery {
+//     @ApiProperty()
+//     id: number;
+//     @ApiProperty()
+//     name: string;
+//     @ApiProperty()
+//     price: number;
+//     @ApiProperty()
+//     description: string;
+// }
+
+@Entity()
 export class Gallery {
-    @ApiProperty()
+    @PrimaryGeneratedColumn()
     id: number;
-    @ApiProperty()
+    @Column()
     name: string;
-    @ApiProperty()
+    @Column()
     price: number;
-    @ApiProperty()
+    @Column()
     description: string;
 }

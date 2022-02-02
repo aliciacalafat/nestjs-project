@@ -3,11 +3,15 @@
 // organizar la estructura de la app.
 
 import { Module } from '@nestjs/common';
-import { GaleriaController } from './galeria.controller';
-import { GaleriaService } from './galeria.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { GaleriaController } from './controllers/galeria.controller';
+import { Gallery } from './entities/gallery.entity';
+import { GaleriaService } from './services/galeria.service';
 
 @Module({
- // imports: [],
+  imports: [
+    TypeOrmModule.forFeature([Gallery])
+  ],
   controllers: [GaleriaController],
   providers: [GaleriaService],
 })

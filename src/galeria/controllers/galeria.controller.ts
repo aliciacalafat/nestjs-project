@@ -7,7 +7,7 @@ import { BadRequestException, Body, Controller, Get, HttpCode, Param, Post } fro
 import { ApiBadGatewayResponse, ApiNoContentResponse, ApiOkResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateImageDto } from 'src/galeria/dto/create-image.dto';
 import { Gallery } from 'src/galeria/entities/gallery.entity';
-import { GaleriaService } from './galeria.service';
+import { GaleriaService } from '../services/galeria.service';
 
 @ApiTags('images')
 @Controller('images')
