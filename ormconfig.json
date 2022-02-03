@@ -1,15 +1,4 @@
 {
-    "type": "postgres",
-    "host": "localhost",
-    "port": 49153,
-    "username": "alicia",
-    "password": "1234",
-    "database": "my_db",
-    "entities": ["src/**/*.entity.ts"],
-    "synchronize": false,
-    "migrationsTableName": "migrations",
-    "migrations": ["src/database/migrations/*.ts"],
-    "cli":{
-        "migrationsDir": "src/database/migrations"
-    }
-}
+    "entities": ["dist/**/*.entity{.ts,.js}"],
+    "cli": { "migrationsDir": "src/migrations" }
+  }

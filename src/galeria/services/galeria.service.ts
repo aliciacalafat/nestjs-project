@@ -6,10 +6,12 @@
 // delegando la función de conectarlos entre ellos a Nest.
 
 
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { CreateImageDto } from 'src/galeria/dto/create-image.dto';
 import { data } from 'src/galeria/dto/gallery.dto';
 import { Gallery } from 'src/galeria/entities/gallery.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class GaleriaService {
@@ -17,17 +19,21 @@ export class GaleriaService {
  //   {id: 1, name: 'silla', price: 180, description: 'holis'},
  //   {id: 2, name: 'taza', price: 5, description: 'jiji'},
  // ]; //donde pone data, tendrías que poner this.images
+  constructor(
+    @InjectRepository(Gallery)
+    private galleryRepository: Repository<Gallery>,
+  ){}
 
-  findAll(): Gallery[] {
-    return data;
+  async findAll(): Promise<Gallery[]> {
+    return await this.galleryRepository.find();
   }
 
-  findOne(id:number): Gallery{
-    return data.find((gallery) => gallery.id === id);
+  async findOne(id:number): Promise<Gallery>{
+    return await this.galleryRepository.findOne(id);
 
   }
 
-  create(gallery: CreateImageDto): Gallery{
+  async create(gallery: CreateImageDto): Promise<Gallery>{
     const newImage = {id: Date.now(), ...gallery};
     data.push(newImage);
     return newImage;

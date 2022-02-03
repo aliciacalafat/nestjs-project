@@ -1,13 +1,38 @@
-version: '3.3'
+version: '3.8'
+networks:
+  backend:
+    driver: bridge
 
 services:
   database:
     image: postgres:13
+    restart: always
+    networks: 
+      - backend
     environment:
       - POSTGRES_DB=my_db
       - POSTGRES_USER=alicia
       - POSTGRES_PASSWORD=1234
     ports:
-      - '49153'
+      - 5431:5432
     volumes:
       - ./postgres_data:/var/lib/postgresql
+
+  nest-api:
+    container_name: docker_api_test
+    image: nestjs-dockerized
+    networks: 
+      - backend
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command: npm run start:dev
+    depends_on:
+      - database
+#    environment:
+#      DATABASE_URL: "postgresql://alicia:1234@postgres:5432/my_db"
+#      MOD_ENV: development
+#      PORT: 3000
+    ports:
+      - 8080:3000
+

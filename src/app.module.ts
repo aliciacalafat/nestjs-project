@@ -3,20 +3,25 @@ import { GaleriaModule } from './galeria/galeria.module';
 import { GaleriaService } from './galeria/services/galeria.service';
 import { GaleriaController } from './galeria/controllers/galeria.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Console } from 'console';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
-      port: 5432,
-      username: 'alicia',
-      password: '1234',
-      database: 'my_db',
-      entities: ['dist/**/*.entity{.ts,.js}'],
+      // port: 5431,
+      // username: 'alicia',
+      // password: '1234',
+      // database: 'my_db',
+      url: "postgresql://alicia:1234@database:5432/my_db",
+      entities: [__dirname + "/**/*.entity{.ts,.js}"],
+//    entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: false,
-      retryDelay: 3000,
-      retryAttempts: 10
+      migrations: [__dirname + "/database/migrations/*{.ts,.js}"],
+      migrationsTableName: "migrations_typeorm",
+      migrationsRun: true,
+      autoLoadEntities: true,
     }),
     GaleriaModule
   ],
@@ -24,3 +29,20 @@ import { TypeOrmModule } from '@nestjs/typeorm';
  // providers: [GaleriaService],
 })
 export class AppModule {}
+
+
+// En el ormconfig.json: {
+//   "type": "postgres",
+//   "host": "localhost",
+//   "port": 5431,
+//   "username": "alicia",
+//   "password": "1234",
+//   "database": "my_db",
+//   "entities": ["src/**/*.entity.ts"],
+//   "synchronize": false,
+//   "migrationsTableName": "migrations",
+//   "migrations": ["src/database/migrations/*.ts"],
+//   "cli":{
+//       "migrationsDir": "src/database/migrations"
+//   }
+// }

@@ -12,14 +12,17 @@ import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 //     description: string;
 // }
 
-@Entity()
+@Entity("Gallery")
 export class Gallery {
     @PrimaryGeneratedColumn()
     id: number;
+
     @Column()
     name: string;
+
     @Column()
     price: number;
+    
     @Column()
     description: string;
 }

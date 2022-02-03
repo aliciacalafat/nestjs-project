@@ -20,14 +20,14 @@ export class GaleriaController {
   // y el que hemos puesto en el decorador (@...) del método. 
   // En nuestro caso: GET/id.
   @Get()
-  findAll():Gallery[]{
-    return this.galeriaService.findAll();
+  async findAll(): Promise<Gallery[]>{
+    return await this.galeriaService.findAll();
   }
 
   @ApiOkResponse({type: Gallery, isArray:true})
   @Get(':id') 
-  findOne(@Param('id') id: string): Gallery {
-      return this.galeriaService.findOne(Number(id));
+  async findOne(@Param('id') id: string): Promise<Gallery> {
+      return await this.galeriaService.findOne(Number(id));
   }
 
   //@ApiResponse({status: 201, description: 'La imagen fue creada'})
